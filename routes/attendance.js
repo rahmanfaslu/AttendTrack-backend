@@ -183,8 +183,7 @@ router.post("/checkout", authMiddleware, upload.single("image"), async (req, res
 })
 
 router.get("/user/:userId", authMiddleware, async (req, res) => {
-  try {
-    // Security: Ensure users can only access their own records
+  try { 
     if (req.user._id.toString() !== req.params.userId) {
       return res.status(403).json({ message: "Access denied. You can only view your own records." })
     }
