@@ -30,11 +30,14 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Diagnostic log for production
-console.log('Production check:', {
-  hasMongo: !!process.env.MONGO_URI,
-  hasJwt: !!process.env.JWT_SECRET,
-  port: process.env.PORT
-});
+console.log('--- Production Diagnostics ---');
+console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
+if (process.env.MONGO_URI) {
+  console.log('MONGO_URI is local:', process.env.MONGO_URI.includes('localhost'));
+}
+console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
+console.log('PORT:', process.env.PORT);
+console.log('------------------------------');
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/attendance', require('./routes/attendance'));
